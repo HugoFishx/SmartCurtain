@@ -3,7 +3,7 @@ import socket
 
 BUF_SIZE = 1024
 host = '192.168.50.219'  # IP of raspi
-host = 'localhost'
+# host = 'localhost'
 port = 8083
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
