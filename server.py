@@ -2,7 +2,7 @@
 import socket
 
 BUF_SIZE = 1024
-host = '192.168.50.248'
+host = '192.168.50.219'
 port = 8083
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

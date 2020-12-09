@@ -1,6 +1,6 @@
 import socket
 import time
-host = 'localhost'
+host = '192.168.50.219'
 port = 8083
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1) #在客户端开启心跳维护
