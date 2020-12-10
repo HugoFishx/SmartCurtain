@@ -1,6 +1,6 @@
 import socket
 import time
-host = '192.168.50.219'  # IP of edge tpu
+host = '192.168.50.248'  # IP of edge tpu
 # host = 'localhost'
 port = 8083
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
