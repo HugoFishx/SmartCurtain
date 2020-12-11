@@ -7,7 +7,7 @@ import sys
 import os
 import struct
 from time import sleep
-import pycoral.examples.detect_image
+import .pycoral.examples.detect_image
 
 def socket_service():
     try:
