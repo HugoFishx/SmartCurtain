@@ -7,13 +7,25 @@ import sys
 import struct
 from picamera import PiCamera
 from time import sleep
+import threading
+
+class Curtain:
+    def __init__(self):
+        self.open = 0
+
+    def close(self):
+        self.open = 0
+        return 0
+
+    def open(self):
+        self.open = 1
+        return 0
 
 def socket_client(camera):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         filepath = '/home/pi/Desktop/cap.jpg'
         s.connect(('192.168.50.248',12345))
-# s.connect(('localhost',12346))
     except socket.error as msg:
         print(msg)
         sys.exit(1)
@@ -38,12 +50,33 @@ def socket_client(camera):
         print('send completed, wating for result')
         if s.recv(1024) == b'1':
             print('BB here!')
+            people_detected = 1
         else:
             print('BB not here!')
+            people_detected = 0
         s.close()
         break
+    return people_detected
+
+def edge_tpu():
+        camera = PiCamera()
+        curtain = Curtain()
+        while 1:
+            if socket_client(camera) and curtain.open:
+                curtain.close()
+                sleep(10)
+                while socket_client(camera):
+                    print('still there')
+                curtain.open()
+
+            if sunrise() and not curtain.open:
+                curtain.open()
+
+def web_server():
+    return 0
 
 if __name__ == '__main__':
-        camera = PiCamera()
-        while 1:
-            socket_client(camera)
+        edge_tpu_thread = threading.Thread(target=edge_tpu, args=)
+        server_thread = threading.Thread(target=web_server, args=)
+            
+            
