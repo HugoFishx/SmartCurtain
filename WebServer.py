@@ -25,13 +25,11 @@ class IndexHandler(tornado.web.RequestHandler):
 urls = [(r"/", IndexHandler),]
 
 def web_server():
+    print('server starts')
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls)
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
-    print('server starts')
-    while 1:
-        print('!!!!!!!!!!!!!')
 
 if __name__ == "__main__":
     web_server()
