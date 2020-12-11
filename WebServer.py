@@ -13,14 +13,7 @@ define("port", type=int, default=8000, help="run on the given port")
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        id = self.get_argument("id", 0)
-
-        # sensor数据
-        sensor_data = 0
-        wifi_sniffer_count = 0
-
-        self.write("WIFI sniffer:" + str(wifi_sniffer_count))
-        self.write('\n' + 'Sensor Reading:' + str(sensor_data))
+        self.render('index.html')
 
 urls = [(r"/", IndexHandler),]
 
