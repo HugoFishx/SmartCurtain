@@ -7,13 +7,14 @@ import sys
 import os
 import struct
 from time import sleep
+from pycoral.examples import detect_image
 
 def socket_service():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        # s.bind(('192.168.50.248', 12345))#这里换上自己的ip和端口
-        s.bind(('localhost', 12346))#这里换上自己的ip和端口
+        s.bind(('192.168.50.248', 12345))#这里换上自己的ip和端口
+        # s.bind(('localhost', 12346))#这里换上自己的ip和端口
         s.listen(10)
     except socket.error as msg:
         print(msg)
@@ -51,6 +52,7 @@ def deal_data(conn, addr):
             print("end receive...")
         print('start interferencing')
         sleep(5)
+        
         conn.send(b'1')
         print('result sent')
 

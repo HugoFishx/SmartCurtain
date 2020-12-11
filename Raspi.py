@@ -5,19 +5,23 @@ import socket
 import os
 import sys
 import struct
+from picamera import PiCamera
 
 def socket_client():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         filepath = '/home/pi/Desktop/cap.jpg'
-        # s.connect(('192.168.50.248',12345))
-        s.connect(('localhost',12346))
+        s.connect(('192.168.50.248',12345))
+        # s.connect(('localhost',12346))
     except socket.error as msg:
         print(msg)
         sys.exit(1)
 
     while 1:
-        filepath = '/Users/yushiqi/Documents/GitHub/SmartCurtain/file'
+        camera = PiCamera()
+        sleep(2)
+        camera.capture('/home/pi/Desktop/cap.jpg')
+        # filepath = '/Users/yushiqi/Documents/GitHub/SmartCurtain/file'
         if os.path.isfile(filepath):
             # 定义定义文件信息。128s表示文件名为128bytes长，l表示一个int或log文件类型，在此为文件大小
             fileinfo_size = struct.calcsize('128sl')
