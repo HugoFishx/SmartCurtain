@@ -8,6 +8,7 @@ import struct
 from picamera import PiCamera
 from time import sleep
 import threading
+from multiprocessing import Process
 from WebServer import web_server
 
 class Curtain:
@@ -78,10 +79,14 @@ def web_server():
     return 0
 
 if __name__ == '__main__':
-        edge_tpu_thread = threading.Thread(target=edge_tpu)
-        server_thread = threading.Thread(target=web_server)
+        #edge_tpu_thread = threading.Thread(target=edge_tpu)
+        edge_tpu_process = Process(target=edge_tpu)
+        #server_thread = threading.Thread(target=web_server)
+        server_process = Process(target=web_server)
         edge_tpu_thread.start()
-        web_server()
+        server_process.start()
+        edge_tpu_process.join()
+        server_process.join()
 
             
             
