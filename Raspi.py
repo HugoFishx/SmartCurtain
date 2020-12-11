@@ -63,7 +63,8 @@ def socket_client(camera):
 def edge_tpu():
         camera = PiCamera()
         curtain = Curtain()
-        socket_client(camera)
+        while 1:
+            socket_client(camera)
         # while 1:
             # socket_client(camera)
             # if socket_client(camera) and curtain.open:
