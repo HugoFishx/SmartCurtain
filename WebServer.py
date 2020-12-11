@@ -9,7 +9,7 @@ import tornado.options
 
 from tornado.options import define, options
 
-define("port", type=int, default=8000, help="run on the given port")
+define("port", type=int, default=12345, help="run on the given port")
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
