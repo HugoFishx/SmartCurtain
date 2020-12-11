@@ -81,6 +81,7 @@ if __name__ == '__main__':
         edge_tpu_thread = threading.Thread(target=edge_tpu)
         server_thread = threading.Thread(target=web_server)
         edge_tpu_thread.start()
-        server_thread.start()
+        web_server()
+
             
             
