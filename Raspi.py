@@ -63,15 +63,16 @@ def edge_tpu():
         camera = PiCamera()
         curtain = Curtain()
         while 1:
-            if socket_client(camera) and curtain.open:
-                curtain.close()
-                sleep(10)
-                while socket_client(camera):
-                    print('still there')
-                curtain.open()
+            socket_client(camera)
+            # if socket_client(camera) and curtain.open:
+            #     curtain.close()
+            #     sleep(10)
+            #     while socket_client(camera):
+            #         print('still there')
+            #     curtain.open()
 
-            if sunrise() and not curtain.open:
-                curtain.open()
+            # if sunrise() and not curtain.open:
+            #     curtain.open()
 
 def web_server():
     return 0

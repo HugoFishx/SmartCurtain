@@ -29,6 +29,7 @@ def web_server():
     app = tornado.web.Application(urls)
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
+    print('server starts')
 
 if __name__ == "__main__":
     web_server()
