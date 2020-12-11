@@ -7,7 +7,7 @@ import sys
 import os
 import struct
 from time import sleep
-from .pycoral.examples.detect_image import detect_func
+import pycoral.examples.detect_image
 
 def socket_service():
     try:
@@ -62,3 +62,5 @@ def deal_data(conn, addr):
 if __name__ == '__main__':
     print('Edge TPU starts')
     socket_service()
+
+    # python3 detect_image.py   --model test_data/ssd_mobilenet_v2_coco_quant_postprocess.tflite   --labels test_data/coco_labels.txt   --input test_data/grace_hopper.bmp   --output ${HOME}/grace_hopper_processed.bmp
