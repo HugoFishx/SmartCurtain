@@ -77,7 +77,7 @@ def web_server():
     return 0
 
 if __name__ == '__main__':
-        edge_tpu_thread = threading.Thread(target=edge_tpu, args=)
-        server_thread = threading.Thread(target=web_server, args=)
+        edge_tpu_thread = threading.Thread(target=edge_tpu)
+        server_thread = threading.Thread(target=web_server)
             
             
