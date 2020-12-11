@@ -6,18 +6,14 @@ import time
 import sys
 import os
 import struct
+from time import sleep
 
-def socket_service(device):
+def socket_service():
     try:
-        if device == 'e':
-            ip = '192.168.50.248'
-            filepath = ''
-        elif device == 'p':
-            ip = '192.168.50.219'
-            filepath = '/home/pi/Desktop/cap.jpg'
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind(('localhost', 12345))#这里换上自己的ip和端口
+        # s.bind(('192.168.50.248', 12345))#这里换上自己的ip和端口
+        s.bind(('localhost', 12346))#这里换上自己的ip和端口
         s.listen(10)
     except socket.error as msg:
         print(msg)
@@ -52,10 +48,15 @@ def deal_data(conn, addr):
                     recvd_size = filesize
                 fp.write(data)
             fp.close()
-            print ("end receive...")
+            print("end receive...")
+        print('start interferencing')
+        sleep(5)
+        conn.send(b'1')
+        print('result sent')
+
         conn.close()
         break
 
-
 if __name__ == '__main__':
+    print('Edge TPU starts')
     socket_service()

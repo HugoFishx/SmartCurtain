@@ -6,16 +6,12 @@ import os
 import sys
 import struct
 
-def socket_client(device):
+def socket_client():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        if device == 'Edge':
-            ip = '192.168.50.248'
-            filepath = ''
-        elif device == 'pi':
-            ip = '192.168.50.219'
-            filepath = '/home/pi/Desktop/cap.jpg'
-        s.connect(('localhost',12345))
+        filepath = '/home/pi/Desktop/cap.jpg'
+        # s.connect(('192.168.50.248',12345))
+        s.connect(('localhost',12346))
     except socket.error as msg:
         print(msg)
         sys.exit(1)
@@ -36,8 +32,11 @@ def socket_client(device):
                     print ('{0} file send over...'.format(filepath))
                     break
                 s.send(data)
+                print('send completed, wating for result')
+        print(s.recv(1024))
         s.close()
         break
 
 if __name__ == '__main__':
-    socket_client()
+    while 1:
+        socket_client()
