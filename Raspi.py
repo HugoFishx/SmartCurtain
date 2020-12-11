@@ -77,16 +77,16 @@ def edge_tpu():
             #     curtain.open()
 
 if __name__ == '__main__':
-        edge_tpu_thread = threading.Thread(target=edge_tpu)
-        server_thread = threading.Thread(target=web_server)
-        edge_tpu_thread.start()
-        server_thread.start()
-        #edge_tpu_process = Process(target=edge_tpu)
-        #server_process = Process(target=web_server)
-        #edge_tpu_process.start()
-        #server_process.start()
-        #edge_tpu_process.join()
-        #server_process.join()
+        # edge_tpu_thread = threading.Thread(target=edge_tpu)
+        # server_thread = threading.Thread(target=web_server)
+        # edge_tpu_thread.start()
+        # server_thread.start()
+        edge_tpu_process = Process(target=edge_tpu)
+        server_process = Process(target=web_server)
+        edge_tpu_process.start()
+        server_process.start()
+        edge_tpu_process.join()
+        server_process.join()
 
             
             
