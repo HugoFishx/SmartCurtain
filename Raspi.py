@@ -8,6 +8,7 @@ import struct
 from picamera import PiCamera
 from time import sleep
 import threading
+from WebServer import web_server
 
 class Curtain:
     def __init__(self):
