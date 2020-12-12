@@ -17,15 +17,11 @@ define("port", type=int, default=12345, help="run on the given port")
 def curtain_close():
     global ser
     ser.write('a')#writ a string to port
-    response = ser.readall()#read a string from port
-    print (response)
     return 0
 
 def curtain_open():
     global ser
     ser.write('b')#writ a string to port
-    response = ser.readall()#read a string from port
-    print (response)
     return 0
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -53,7 +49,7 @@ class ImageHandler(tornado.web.StaticFileHandler):
 settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 
-def web_server(curtain_dict):
+def web_server():
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
@@ -61,5 +57,5 @@ def web_server(curtain_dict):
 
 
 if __name__ == "__main__":
-    # web_server()
-    pass
+    web_server()
+
