@@ -11,13 +11,56 @@ from tornado.options import define, options
 
 define("port", type=int, default=12345, help="run on the given port")
 
+class Object():
+    def __init__(self):
+        self.busy = 0
+        self.closed = 0
+
+    def open(self):
+        return 0
+    def close(self):
+        return 0
+
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('index.html')
+        global curtain
+        print(curtain.busy)
+        status = 'Choose your operation'
+        if curtain.closed:
+            curtain_status = 'closed'
+        else:
+            curtain_status = 'open'
+        self.render('index.html', status=status, curtain_status=curtain_status)
 
-urls = [(r"/", IndexHandler),]
+class CurtainOpenHandler(tornado.web.RequestHandler):
+    def get(self):
+        global curtain
+        while curtain.busy:
+            pass
+        curtain.open()
+        status = 'Curtain has been opened!'
+        if curtain.closed:
+            curtain_status = 'closed'
+        else:
+            curtain_status = 'open'
+        self.render('index.html', status=status, curtain_status=curtain_status)
 
-def web_server():
+class CurtainCloseHandler(tornado.web.RequestHandler):
+    def get(self):
+        global curtain
+        while curtain.busy:
+            pass
+        curtain.close()
+        status = 'Curtain is now closed!'
+        if curtain.closed:
+            curtain_status = 'closed'
+        else:
+            curtain_status = 'open'
+        self.render('index.html', status=status, curtain_status=curtain_status)
+
+# urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(pic.png)", tornado.web.StaticFileHandler, {'path':'./'})]
+urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(/home/pi/Desktop/cap.jpg)", tornado.web.StaticFileHandler, {'path':'/home/pi/Desktop/cap.jpg'})]
+def web_server(curtain):
     print('server starts')
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls)
@@ -25,4 +68,5 @@ def web_server():
     tornado.ioloop.IOLoop.current().start()
 
 if __name__ == "__main__":
-    web_server()
+    curtain = Object()
+    web_server(curtain)
