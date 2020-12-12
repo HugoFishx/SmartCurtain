@@ -15,13 +15,19 @@ void setup() {
   //pinMode(SW, INPUT_PULLUP); 
   pinMode(stepPin, OUTPUT);
   pinMode(dirPin, OUTPUT);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(7,OUTPUT);
+  digitalWrite(7,LOW);
+  
   
 }
 
 void loop() {
   //Serial.println(get_joystick());
-  open();
-  close();
+  delay(100);
+  Serial.println(digitalRead(4));
+  // open();
+  // close();
 }
 
 int get_joystick() {
