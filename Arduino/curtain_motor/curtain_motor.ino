@@ -25,10 +25,10 @@ void setup() {
 void loop() {
   if ( Serial.available())
     {
-      long recv = Serial.println(Serial.read());
-      if('open' == recv)
+      int recv = Serial.println(Serial.read());
+      if('0' == recv)
         open();
-      else if ('close' == recv)
+      else if ('1' == recv)
         close();
      }
 }
