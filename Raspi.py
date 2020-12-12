@@ -64,6 +64,8 @@ def edge_tpu():
         camera = PiCamera()
         while 1:
             socket_client(camera)
+            global curtain
+            print(curtain.close)
         # while 1:
             # socket_client(camera)
             # if socket_client(camera) and curtain.open:
