@@ -17,17 +17,20 @@ void setup() {
   pinMode(dirPin, OUTPUT);
   pinMode(4, INPUT_PULLUP);
   pinMode(7,OUTPUT);
-  digitalWrite(7,LOW);
+  
   
   
 }
 
 void loop() {
-  //Serial.println(get_joystick());
   delay(100);
-  Serial.println(digitalRead(4));
-  // open();
-  // close();
+  if ( Serial.available())
+    {
+      if('open' == Serial.read())
+        open();
+      else if ('close' == Serial.read())
+        close();
+     }
 }
 
 int get_joystick() {
