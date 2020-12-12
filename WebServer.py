@@ -58,8 +58,13 @@ class CurtainCloseHandler(tornado.web.RequestHandler):
             curtain_status = 'open'
         self.render('index.html', status=status, curtain_status=curtain_status)
 
+class ImageHandler(tornado.web.RequestHandler):
+    def get(self):
+        
+
+
 # urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(pic.png)", tornado.web.StaticFileHandler, {'path':'./'})]
-urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpg)", tornado.web.StaticFileHandler, {'path':'./'})]
+urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpg)", ImageHandler)]
 def web_server(curtain):
     print('server starts')
     tornado.options.parse_command_line()

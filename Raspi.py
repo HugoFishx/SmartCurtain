@@ -26,14 +26,14 @@ class Curtain:
 def socket_client(camera):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        filepath = '/home/pi/Desktop/cap.jpg'
+        filepath = 'cap.png'
         s.connect(('192.168.50.248',12345))
     except socket.error as msg:
         print(msg)
         sys.exit(1)
 
     while 1:
-        camera.capture('/home/pi/Desktop/cap.jpg')
+        camera.capture('cap.png')
         sleep(5)
         # filepath = '/Users/yushiqi/Documents/GitHub/SmartCurtain/file'
         if os.path.isfile(filepath):
