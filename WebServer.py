@@ -23,10 +23,9 @@ class Object():
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain
-        print(curtain.busy)
+        global curtain_dict
         status = 'Choose your operation'
-        if curtain.closed:
+        if not curtain_dict['open']:
             curtain_status = 'closed'
         else:
             curtain_status = 'open'
@@ -34,12 +33,12 @@ class IndexHandler(tornado.web.RequestHandler):
 
 class CurtainOpenHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain
-        while curtain.busy:
+        global curtain_dict
+        while curtain_dict['busy']:
             pass
-        curtain.open()
+        curtain_open()
         status = 'Curtain has been opened!'
-        if curtain.closed:
+        if not curtain_dict['open']:
             curtain_status = 'closed'
         else:
             curtain_status = 'open'
@@ -47,12 +46,12 @@ class CurtainOpenHandler(tornado.web.RequestHandler):
 
 class CurtainCloseHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain
-        while curtain.busy:
+        global curtain_dict
+        while curtain_dict['busy']:
             pass
-        curtain.close()
+        curtain_close()
         status = 'Curtain is now closed!'
-        if curtain.closed:
+        if not curtain_dict['open']:
             curtain_status = 'closed'
         else:
             curtain_status = 'open'
@@ -65,14 +64,14 @@ class ImageHandler(tornado.web.StaticFileHandler):
 # urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(pic.png)", tornado.web.StaticFileHandler, {'path':'./'})]
 settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
-def web_server():
+def web_server(curtain_dict):
     print('server starts')
-    global curtain
-    print(curtain.busy)
+    print(curtain_dict['open'])
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
 
 if __name__ == "__main__":
-    web_server()
+    # web_server()
+    pass

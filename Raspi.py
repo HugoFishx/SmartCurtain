@@ -8,21 +8,14 @@ import struct
 from picamera import PiCamera
 from time import sleep
 import threading
-from multiprocessing import Process
+from multiprocessing import Process, Manager
 from WebServer import web_server
 
-class Curtain:
-    def __init__(self):
-        self.open = 0
-        self.busy = 0
+def curtain_close():
+    return 0
 
-    def close(self):
-        self.open = 0
-        return 0
-
-    def open(self):
-        self.open = 1
-        return 0
+def curtain_open():
+    return 0
 
 def socket_client(camera):
     try:
@@ -61,7 +54,7 @@ def socket_client(camera):
         break
     return people_detected
 
-def edge_tpu():
+def edge_tpu(curtain_dict):
         camera = PiCamera()
         while 1:
             socket_client(camera)
@@ -78,18 +71,22 @@ def edge_tpu():
 
             # if sunrise() and not curtain.open:
             #     curtain.open()
-curtain = Curtain()
+
 if __name__ == '__main__':
         # edge_tpu_thread = threading.Thread(target=edge_tpu)
         # server_thread = threading.Thread(target=web_server)
         # edge_tpu_thread.start()
         # server_thread.start()
-        edge_tpu_process = Process(target=edge_tpu)
-        server_process = Process(target=web_server)
+        manager = Manager()
+        curtain_dict = manager.dict()
+        curtain_dict['open'] = 0
+        curtain_dict['busy'] = 0
+        edge_tpu_process = Process(target=edge_tpu, args=(curtain_dict,))
+        server_process = Process(target=web_server, args=(curtain_dict,))
         edge_tpu_process.start()
         server_process.start()
-        # edge_tpu_process.join()
-        # server_process.join()
+        edge_tpu_process.join()
+        server_process.join()
 
             
             

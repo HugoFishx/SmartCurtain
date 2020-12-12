@@ -3,3 +3,4 @@
 *.iml
 pycoral/.DS_Store
 .DS_Store
+__pycache__/WebServer.cpython-38.pyc
