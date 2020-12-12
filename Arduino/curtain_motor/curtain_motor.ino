@@ -25,9 +25,9 @@ void setup() {
 void loop() {
   if ( Serial.available())
     {
-      if('0' == Serial.read())
+      if('a' == Serial.read())
         open();
-      else if ('1' == Serial.read())
+      else
         close();
      }
 }
@@ -41,7 +41,6 @@ int get_joystick() {
   
 void open() {
   long timestamp = millis();
-  Serial.println(timestamp);
   digitalWrite(dirPin, LOW);
   while (millis() - timestamp < DELAY) {
     digitalWrite(stepPin, LOW);
