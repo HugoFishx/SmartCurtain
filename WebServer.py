@@ -44,6 +44,7 @@ settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 
 def web_server(curtain_dict):
+    GPIO.cleanup()
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(19, GPIO.OUT, initial=GPIO.LOW)
     GPIO.output(19, GPIO.LOW)
