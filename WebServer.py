@@ -8,7 +8,6 @@ import tornado.web
 import tornado.options
 
 from tornado.options import define, options
-from Raspi import curtain_close, curtain_open
 
 define("port", type=int, default=12345, help="run on the given port")
 
