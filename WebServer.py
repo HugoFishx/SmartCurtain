@@ -12,6 +12,12 @@ from Raspi import curtain_close, curtain_open
 
 define("port", type=int, default=12345, help="run on the given port")
 
+def curtain_close():
+    return 0
+
+def curtain_open():
+    return 0
+
 class Object():
     def __init__(self):
         self.busy = 0

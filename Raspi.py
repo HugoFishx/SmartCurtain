@@ -9,13 +9,8 @@ from picamera import PiCamera
 from time import sleep
 import threading
 from multiprocessing import Process, Manager
-from WebServer import web_server
+from WebServer import web_server, curtain_close, curtain_open
 
-def curtain_close():
-    return 0
-
-def curtain_open():
-    return 0
 
 def socket_client(camera):
     try:
