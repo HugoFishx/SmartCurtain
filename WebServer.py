@@ -23,6 +23,7 @@ class Object():
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
+        global curtain
         print(curtain.busy)
         status = 'Choose your operation'
         if curtain.closed:
@@ -33,6 +34,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
 class CurtainOpenHandler(tornado.web.RequestHandler):
     def get(self):
+        global curtain
         while curtain.busy:
             pass
         curtain.open()
@@ -45,6 +47,7 @@ class CurtainOpenHandler(tornado.web.RequestHandler):
 
 class CurtainCloseHandler(tornado.web.RequestHandler):
     def get(self):
+        global curtain
         while curtain.busy:
             pass
         curtain.close()
