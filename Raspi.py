@@ -60,7 +60,7 @@ def socket_client(camera):
         break
     return people_detected
 
-def edge_tpu(curtain):
+def edge_tpu():
         camera = PiCamera()
         while 1:
             socket_client(camera)
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         # edge_tpu_thread.start()
         # server_thread.start()
         curtain = Curtain()
-        edge_tpu_process = Process(target=edge_tpu, args=curtain)
+        edge_tpu_process = Process(target=edge_tpu)
         server_process = Process(target=web_server)
         edge_tpu_process.start()
         server_process.start()
