@@ -45,9 +45,9 @@ urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainC
 
 def web_server(curtain_dict):
     GPIO.cleanup()
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(19, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.output(19, GPIO.LOW)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(25, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.output(25, GPIO.LOW)
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
