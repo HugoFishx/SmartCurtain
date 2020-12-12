@@ -23,7 +23,6 @@ class Object():
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain_dict
         status = 'Choose your operation'
         if not curtain_dict['open']:
             curtain_status = 'closed'
@@ -33,7 +32,6 @@ class IndexHandler(tornado.web.RequestHandler):
 
 class CurtainOpenHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain_dict
         while curtain_dict['busy']:
             pass
         curtain_open()
@@ -46,7 +44,6 @@ class CurtainOpenHandler(tornado.web.RequestHandler):
 
 class CurtainCloseHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain_dict
         while curtain_dict['busy']:
             pass
         curtain_close()
@@ -66,7 +63,6 @@ settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 def web_server(curtain_dict):
     print('server starts')
-    print(curtain_dict['open'])
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)

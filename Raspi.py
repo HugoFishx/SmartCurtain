@@ -58,7 +58,6 @@ def edge_tpu(curtain_dict):
         camera = PiCamera()
         while 1:
             socket_client(camera)
-            print(curtain_dict['open'], '!!!!!!!!!!!!!!')
         # while 1:
             # socket_client(camera)
             # if socket_client(camera) and curtain.open:
