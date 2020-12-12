@@ -16,14 +16,14 @@ define("port", type=int, default=12345, help="run on the given port")
 
 def curtain_close():
     global ser
-    ser.write(b'close')#writ a string to port
+    ser.write('close')#writ a string to port
     response = ser.readall()#read a string from port
     print (response)
     return 0
 
 def curtain_open():
     global ser
-    ser.write(b'open')#writ a string to port
+    ser.write('open')#writ a string to port
     response = ser.readall()#read a string from port
     print (response)
     return 0
