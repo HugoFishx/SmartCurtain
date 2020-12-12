@@ -10,7 +10,7 @@ from time import sleep
 import threading
 from multiprocessing import Process, Manager
 from WebServer import web_server, curtain_close, curtain_open
-
+import RPi.GPIO as GPIO
 
 def socket_client(camera):
     try:
@@ -70,16 +70,21 @@ if __name__ == '__main__':
         # server_thread = threading.Thread(target=web_server)
         # edge_tpu_thread.start()
         # server_thread.start()
-        manager = Manager()
-        curtain_dict = manager.dict()
-        curtain_dict['open'] = 0
-        curtain_dict['busy'] = 0
-        edge_tpu_process = Process(target=edge_tpu, args=(curtain_dict,))
-        server_process = Process(target=web_server, args=(curtain_dict,))
-        edge_tpu_process.start()
-        server_process.start()
-        edge_tpu_process.join()
-        server_process.join()
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(21, GPIO.OUT, initial=GPIO.LOW)
+    while 1:
+        print('why??????????')
+        GPIO.output(21, GPIO.LOW)
+    manager = Manager()
+    curtain_dict = manager.dict()
+    curtain_dict['open'] = 0
+    curtain_dict['busy'] = 0
+    edge_tpu_process = Process(target=edge_tpu, args=(curtain_dict,))
+    server_process = Process(target=web_server, args=(curtain_dict,))
+    edge_tpu_process.start()
+    server_process.start()
+    edge_tpu_process.join()
+    server_process.join()
 
             
             
