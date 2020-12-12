@@ -14,6 +14,7 @@ from WebServer import web_server
 class Curtain:
     def __init__(self):
         self.open = 0
+        self.busy = 0
 
     def close(self):
         self.open = 0
