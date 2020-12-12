@@ -68,6 +68,7 @@ urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainC
 def web_server():
     print('server starts')
     global curtain
+    print(curtain.busy)
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
