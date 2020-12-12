@@ -11,6 +11,8 @@ import threading
 from multiprocessing import Process, Manager
 from WebServer import web_server, curtain_close, curtain_open
 import RPi.GPIO as GPIO
+import serial
+ser = serial.Serial('/dev/ttyACM0', 9600,timeout=1)   #open named port at 9600,1s timeot
 
 def socket_client(camera):
     try:
