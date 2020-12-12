@@ -23,12 +23,12 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
   if ( Serial.available())
     {
-      if('open' == Serial.read())
+      long recv = Serial.println(Serial.read());
+      if('open' == recv)
         open();
-      else if ('close' == Serial.read())
+      else if ('close' == recv)
         close();
      }
 }
