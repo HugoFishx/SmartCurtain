@@ -44,11 +44,11 @@ settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 
 def web_server(curtain_dict):
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(40, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(21, GPIO.OUT, initial=GPIO.LOW)
     while 1:
         print('why??????????')
-        GPIO.output(40, GPIO.LOW)
+        GPIO.output(21, GPIO.LOW)
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
