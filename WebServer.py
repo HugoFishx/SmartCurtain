@@ -23,7 +23,7 @@ class Object():
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain
+        curtain = Object()
         print(curtain.busy)
         status = 'Choose your operation'
         if curtain.closed:
@@ -34,7 +34,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
 class CurtainOpenHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain
+        curtain = Object()
         while curtain.busy:
             pass
         curtain.open()
@@ -47,7 +47,7 @@ class CurtainOpenHandler(tornado.web.RequestHandler):
 
 class CurtainCloseHandler(tornado.web.RequestHandler):
     def get(self):
-        global curtain
+        curtain = Object()
         while curtain.busy:
             pass
         curtain.close()
@@ -60,7 +60,7 @@ class CurtainCloseHandler(tornado.web.RequestHandler):
 
 # urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(pic.png)", tornado.web.StaticFileHandler, {'path':'./'})]
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpg)", tornado.web.StaticFileHandler, {'path':'./'})]
-def web_server(curtain):
+def web_server():
     print('server starts')
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls)
@@ -69,4 +69,4 @@ def web_server(curtain):
 
 if __name__ == "__main__":
     curtain = Object()
-    web_server(curtain)
+    web_server()
