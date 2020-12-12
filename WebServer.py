@@ -63,11 +63,12 @@ class ImageHandler(tornado.web.StaticFileHandler):
         self.set_header("Cache-control", "no-cache")
 
 # urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(pic.png)", tornado.web.StaticFileHandler, {'path':'./'})]
+settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 def web_server():
     print('server starts')
     tornado.options.parse_command_line()
-    app = tornado.web.Application(urls)
+    app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
 
