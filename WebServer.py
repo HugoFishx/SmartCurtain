@@ -8,6 +8,7 @@ import tornado.web
 import tornado.options
 
 from tornado.options import define, options
+from Raspi import curtain_close, curtain_open
 
 define("port", type=int, default=12345, help="run on the given port")
 
@@ -23,38 +24,20 @@ class Object():
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        global x
-        print(x)
         status = 'Choose your operation'
-        if not curtain_dict['open']:
-            curtain_status = 'closed'
-        else:
-            curtain_status = 'open'
-        self.render('index.html', status=status, curtain_status=curtain_status)
+        self.render('index.html', status=status)
 
 class CurtainOpenHandler(tornado.web.RequestHandler):
     def get(self):
-        while curtain_dict['busy']:
-            pass
         curtain_open()
         status = 'Curtain has been opened!'
-        if not curtain_dict['open']:
-            curtain_status = 'closed'
-        else:
-            curtain_status = 'open'
-        self.render('index.html', status=status, curtain_status=curtain_status)
+        self.render('index.html', status=status)
 
 class CurtainCloseHandler(tornado.web.RequestHandler):
     def get(self):
-        while curtain_dict['busy']:
-            pass
         curtain_close()
         status = 'Curtain is now closed!'
-        if not curtain_dict['open']:
-            curtain_status = 'closed'
-        else:
-            curtain_status = 'open'
-        self.render('index.html', status=status, curtain_status=curtain_status)
+        self.render('index.html', status=status)
 
 class ImageHandler(tornado.web.StaticFileHandler):
     def set_extra_headers(self, path):
@@ -63,9 +46,8 @@ class ImageHandler(tornado.web.StaticFileHandler):
 # urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(pic.png)", tornado.web.StaticFileHandler, {'path':'./'})]
 settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
+
 def web_server(curtain_dict):
-    print('server starts')
-    x = 1
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
