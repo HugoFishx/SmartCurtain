@@ -47,6 +47,7 @@ def web_server(curtain_dict):
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(40, GPIO.OUT, initial=GPIO.LOW)
     while 1:
+        print('why??????????')
         GPIO.output(40, GPIO.LOW)
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
