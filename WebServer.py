@@ -6,6 +6,7 @@ import tornado.ioloop
 import tornado.httpserver
 import tornado.web
 import tornado.options
+import RPi.GPIO as GPIO
 
 from tornado.options import define, options
 
@@ -16,16 +17,6 @@ def curtain_close():
 
 def curtain_open():
     return 0
-
-class Object():
-    def __init__(self):
-        self.busy = 0
-        self.closed = 0
-
-    def open(self):
-        return 0
-    def close(self):
-        return 0
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
@@ -53,10 +44,12 @@ settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 
 def web_server(curtain_dict):
+    GPIO.setup(25, GPIO.OUT, initial=GPIO.HIGH)
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
+
 
 if __name__ == "__main__":
     # web_server()
