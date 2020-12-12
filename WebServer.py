@@ -75,5 +75,4 @@ def web_server():
     tornado.ioloop.IOLoop.current().start()
 
 if __name__ == "__main__":
-    curtain = Object()
     web_server()
