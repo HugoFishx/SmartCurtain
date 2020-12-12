@@ -7,15 +7,25 @@ import tornado.httpserver
 import tornado.web
 import tornado.options
 import RPi.GPIO as GPIO
+import serial    #import serial module
+ser = serial.Serial('/dev/ttyACM0', 9600,timeout=1)   #open named port at 9600,1s timeot
 
 from tornado.options import define, options
 
 define("port", type=int, default=12345, help="run on the given port")
 
 def curtain_close():
+    global ser
+    ser.write('s')#writ a string to port
+    response = ser.readall()#read a string from port
+    print (response)
     return 0
 
 def curtain_open():
+    global ser
+    ser.write('s')#writ a string to port
+    response = ser.readall()#read a string from port
+    print (response)
     return 0
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -44,11 +54,6 @@ settings = {"debug": True,}
 urls = [(r"/", IndexHandler),(r"/open", CurtainOpenHandler),(r"/close", CurtainCloseHandler),(r"/(cap.jpeg)", ImageHandler, {'path':'./'}),]
 
 def web_server(curtain_dict):
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(21, GPIO.OUT, initial=GPIO.LOW)
-    while 1:
-        print('why??????????')
-        GPIO.output(21, GPIO.LOW)
     tornado.options.parse_command_line()
     app = tornado.web.Application(urls, **settings)
     app.listen(options.port)

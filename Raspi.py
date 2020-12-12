@@ -70,11 +70,6 @@ if __name__ == '__main__':
         # server_thread = threading.Thread(target=web_server)
         # edge_tpu_thread.start()
         # server_thread.start()
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(21, GPIO.OUT, initial=GPIO.LOW)
-    while 1:
-        print('why??????????')
-        GPIO.output(21, GPIO.LOW)
     manager = Manager()
     curtain_dict = manager.dict()
     curtain_dict['open'] = 0
