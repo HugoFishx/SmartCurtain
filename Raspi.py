@@ -12,8 +12,10 @@ from multiprocessing import Process, Manager
 from WebServer import web_server, curtain_close, curtain_open
 import RPi.GPIO as GPIO
 import serial
-ser = serial.Serial('/dev/ttyACM0', 9600,timeout=1)   #open named port at 9600,1s timeot
-
+try:
+    ser = serial.Serial('/dev/ttyACM1', 9600,timeout=1)   #open named port at 9600,1s timeot
+except:
+    ser = serial.Serial('/dev/ttyACM0', 9600,timeout=1)
 def socket_client(camera):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -51,7 +53,7 @@ def socket_client(camera):
         break
     return people_detected
 
-def edge_tpu(curtain_dict):
+def edge_tpu():
         camera = PiCamera()
         while 1:
             if socket_client(camera):
@@ -78,8 +80,8 @@ if __name__ == '__main__':
     curtain_dict = manager.dict()
     curtain_dict['open'] = 0
     curtain_dict['busy'] = 0
-    edge_tpu_process = Process(target=edge_tpu, args=(curtain_dict,))
-    server_process = Process(target=web_server, args=(curtain_dict,))
+    edge_tpu_process = Process(target=edge_tpu)
+    server_process = Process(target=web_server)
     edge_tpu_process.start()
     server_process.start()
     edge_tpu_process.join()

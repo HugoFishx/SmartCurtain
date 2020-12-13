@@ -8,7 +8,10 @@ import tornado.web
 import tornado.options
 import RPi.GPIO as GPIO
 import serial    #import serial module
-ser = serial.Serial('/dev/ttyACM0', 9600,timeout=1)   #open named port at 9600,1s timeot
+try:
+    ser = serial.Serial('/dev/ttyACM1', 9600,timeout=1)   #open named port at 9600,1s timeot
+except:
+    ser = serial.Serial('/dev/ttyACM0', 9600,timeout=1)
 
 from tornado.options import define, options
 
