@@ -19,12 +19,12 @@ define("port", type=int, default=12345, help="run on the given port")
 
 def curtain_close():
     global ser
-    ser.write('a')#writ a string to port
+    ser.write(str.encode('a'))#writ a string to port
     return 0
 
 def curtain_open():
     global ser
-    ser.write('b')#writ a string to port
+    ser.write(str.encode('b'))#writ a string to port
     return 0
 
 class IndexHandler(tornado.web.RequestHandler):

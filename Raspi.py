@@ -27,7 +27,7 @@ def socket_client(camera):
 
     while 1:
         camera.capture('cap.jpeg')
-        sleep(5)
+        sleep(2)
         # filepath = '/Users/yushiqi/Documents/GitHub/SmartCurtain/file'
         if os.path.isfile(filepath):
             # 定义定义文件信息。128s表示文件名为128bytes长，l表示一个int或log文件类型，在此为文件大小
