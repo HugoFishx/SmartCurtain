@@ -36,7 +36,7 @@ def deal_data(conn, addr):
             filename, filesize = struct.unpack('128sq', buf)
             fn = filename.strip(str.encode('\00'))
             new_filename = os.path.join(str.encode('./'), str.encode('new_') + fn)
-            print ('file new name is {0}, filesize if {1}'.format(new_filename, filesize))
+            #print ('file new name is {0}, filesize if {1}'.format(new_filename, filesize))
 
             recvd_size = 0  # 定义已接收文件的大小
             fp = open('pic.jpg', 'wb')
@@ -52,9 +52,14 @@ def deal_data(conn, addr):
             fp.close()
             print("end receive...")
         print('start interferencing')
-        if detect_image.detect_func():
+        try:
+            detected =  detect_image.detect_func()
+        except OSError:
+            detected = 0
+        if detected:
             conn.send(b'1')
-        conn.send(b'0')
+        else: 
+            conn.send(b'0')
         print('result sent')
 
         conn.close()
