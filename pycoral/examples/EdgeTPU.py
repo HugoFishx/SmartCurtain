@@ -58,9 +58,11 @@ def deal_data(conn, addr):
             detected = 0
         if detected:
             conn.send(b'1')
+            result='Detected!'
         else: 
             conn.send(b'0')
-        print('result sent')
+            result='Not Detected!'
+        print('result sent:'+result)
 
         conn.close()
         break
