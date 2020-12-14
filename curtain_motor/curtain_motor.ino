@@ -1,7 +1,7 @@
 #include <MsTimer2.h>
 #define dirPin 2
 #define stepPin 3
-#define DELAY 16*1000
+#define DELAY 8*1000
 #define Trig 4
 #define Echo 5
 // joystick
