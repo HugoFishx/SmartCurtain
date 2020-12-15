@@ -13,8 +13,8 @@ def socket_service():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind(('192.168.50.248', 12345))#这里换上自己的ip和端口
-        # s.bind(('localhost', 12346))#这里换上自己的ip和端口
+        s.bind(('192.168.50.248', 12345))
+        # s.bind(('localhost', 12346))
         s.listen(10)
     except socket.error as msg:
         print(msg)
@@ -33,11 +33,7 @@ def deal_data(conn, addr):
         buf = conn.recv(fileinfo_size)
         if buf:
             filename, filesize = struct.unpack('128sl', buf)
-            fn = filename.strip(str.encode('\00'))
-            new_filename = os.path.join(str.encode('./'), str.encode('new_') + fn)
-            print ('file new name is {0}, filesize if {1}'.format(new_filename, filesize))
-
-            recvd_size = 0  # 定义已接收文件的大小
+            recvd_size = 0
             fp = open('new', 'wb')
             print ("start receiving...")
             while not recvd_size == filesize:
