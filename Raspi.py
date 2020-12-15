@@ -30,8 +30,6 @@ def socket_client(camera):
         sleep(2)
         # filepath = '/Users/yushiqi/Documents/GitHub/SmartCurtain/file'
         if os.path.isfile(filepath):
-            # 定义定义文件信息。128s表示文件名为128bytes长，l表示一个int或log文件类型，在此为文件大小
-            # 定义文件头信息，包含文件名和文件大小
             fhead = struct.pack(b'128sq', bytes(os.path.basename(filepath).encode('utf-8')),os.stat(filepath).st_size)
             s.send(fhead)
             print ('client filepath: {0}'.format(filepath))
