@@ -1,4 +1,4 @@
-# <center>SP21 CS498 IoT Final Project Report</center>
+# <center>Smart Curtain</center>
 
 ## <center>Shiqi Yu</center>
 
