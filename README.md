@@ -10,7 +10,7 @@
 
   This project includes three parts. The first part is motor & sensor module which is responsible for **physically opening and closing the curtain**. The second part is a **people detection** module that interference if there is anyone outside. The third part is center control unit which is in charge of **communication and logic**.
 
-  ![](C:\Users\Hugo\Downloads\layout.png)
+  ![](layout.png)
 
   <center>Figure 1. Project Layout</center>
 
@@ -37,17 +37,17 @@
 
   The motor I use is NEMA23 stepper motor. It is much more powerful than the regular stepper motors that come with the Arduino kit. Also I have a motor driver board TB6600 that works with the motor.
 
-  <img src="C:\Users\Hugo\Desktop\final report\motor.png" style="zoom:27%;" />
+  <img src="images/nema23.jpg" style="zoom:25%;" />
 
   <center>Figure 2. NEMA23 </center>
 
-  <img src="C:\Users\Hugo\Desktop\final report\driver.png" style="zoom: 50%;" />
+  <img src="images/TB6600 Driver Board.jpg" style="zoom:25%;" />
 
   <center>Figure 3. TB6600 Driver Board</center>
 
   The motor is connected to the board and the board is connected to an Arduino Uno. The Arduino receives instruction from Raspberry Pi via serial port, translates it to digital signal, and then sends the signal to the driver board.
 
-  <img src="C:\Users\Hugo\Desktop\final report\arduino.png" style="zoom:75%;" />
+  <img src="images/arduino.jpg" />
 
 ​                                                                                                                       
 
@@ -55,7 +55,7 @@
 
 There is a ultrasonic sensor that is connected to Arduino. It is responsible for measuring the distance between curtain cloth and the wall. If the distance is out of range, the curtain will stop moving. 
 
-![](C:\Users\Hugo\Desktop\final report\ultrasonic.png)
+<img src="images/Ultrasonic Sensor.jpg" style="zoom:25%;" />
 
 <center>Figure 5. Ultrasonic Sensor</center>
 
@@ -63,7 +63,7 @@ There is a ultrasonic sensor that is connected to Arduino. It is responsible for
 
 Due to the limited computation power of Raspberry Pi, I decide to use a Google Edge TPU board which is specially designed for accelerating the computation of machine learning technique. The TPU receives the capture that is taken by camera on Raspberry Pi and sent via socket ,and then it inputs the image into the object detection model to see if there is anyone outside the window. Then it returns the result via socket connection to Raspberry Pi.
 
-<img src="C:\Users\Hugo\Desktop\final report\TPU.png" style="zoom:80%;" />
+<img src="images/Google Edge TPU.jpg" />
 
 <center>Figure 6. Google Edge TPU</center>
 
@@ -71,11 +71,11 @@ Due to the limited computation power of Raspberry Pi, I decide to use a Google E
 
 The center control unit is a Raspberry Pi 4B. It is responsible for running a web server that works as interface, communicating with Edge TPU, and sending instruction to Arduino. There is a specially designed camera connected to it.
 
-<img src="C:\Users\Hugo\Desktop\final report\Raspi.png" style="zoom: 50%;" />
+<img src="images/Raspi4B.jpg" style="zoom: 50%;" />
 
 <center>Figure 7. Raspberry Pi 4B</center>
 
-<img src="C:\Users\Hugo\Desktop\final report\camera.png" style="zoom: 33%;" />
+<img src="images/picamera.jpg" style="zoom:25%;" />
 
 <center>Figure 8. Pi Camera</center>
 
@@ -85,7 +85,7 @@ The center control unit is a Raspberry Pi 4B. It is responsible for running a we
 
   The motor is controlled by Arduino. The DIR pins take digital signal as input and they determine the rotation direction of stepper motor. The PUL pins determine step of the motor. A and B pins are the wires from coils of stepper motor. 
 
-  <img src="C:\Users\Hugo\AppData\Roaming\Typora\typora-user-images\image-20201214192010009.png" alt="image-20201214192010009" style="zoom:67%;" />
+  <img src="images/figure9.png" />
 
 <center>Figure 9. Motor Connection</center>
 
@@ -422,15 +422,13 @@ if __name__ == '__main__':
 
 Unfortunately I do not have access to any 3D printer which helps me DIY the component. My first choice was the belt that people use on 3D printer. In my imagination it will work like the tank track that carries the curtain cloth. However the belt it self is not connected. It took me lot of effort to connect its ends because of its reinforced surface. The more unlucky thing is there is not enough tension to hold the belt. It kept conflicting with itself. 
 
-<img src="C:\Users\Hugo\Desktop\final report\belt.png" style="zoom: 80%;" />
-
 Fortunately I find the gears are compatible with my tension rod and I replace belt with cotton wire in the kitchen. To avoid entangling the strings, I add two plastic pieces. Besides, I tape to string to the gear to force them to go the right direction. Here is a snapshot of the final setup of mechanical part. It is more clear in the presentation video.
 
-<img src="C:\Users\Hugo\OneDrive\IMG_4584.PNG" style="zoom:33%;" />
+<img src="images/IMG_4584.PNG" style="zoom:33%;" />
 
-<img src="C:\Users\Hugo\OneDrive\IMG_4585.PNG" alt="IMG_4585" style="zoom:33%;" />
+<img src="images/IMG_4585.PNG" alt="IMG_4585" style="zoom:33%;" />
 
-<img src="C:\Users\Hugo\OneDrive\IMG_4586.PNG" alt="IMG_4586" style="zoom:33%;" />
+<img src="images/IMG_4586.PNG" alt="IMG_4586" style="zoom:33%;" />
 
 - ### Result
 
